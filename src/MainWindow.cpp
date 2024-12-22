@@ -3,6 +3,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QGraphicsPixmapItem>
+#include <QCoreApplication>
 #include <QPixmap>
 #include <QDebug>
 
@@ -20,12 +21,14 @@ MainWindow::MainWindow(QWidget *parent)
     setCentralWidget(view);
 
     // Add Player
-    QPixmap playerImage("C:/Users/Sam.White/Programming/Golf Game/graphics/ghost.png");
+    QString playerPath = QCoreApplication::applicationDirPath() + "/../graphics/ghost.png";
+    QPixmap playerImage(playerPath);
     if (playerImage.isNull()) {
         qDebug() << "Could not load player image";
     } else {
         qDebug() << "Player image loaded";
-        Player *player = new Player(playerImage);
+        QPixmap scaledPlayerImage = playerImage.scaled(50, 50, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        Player *player = new Player(scaledPlayerImage);
         player->setPos(player->getPosition()[0], player->getPosition()[1]);
         scene->addItem(player);
     }

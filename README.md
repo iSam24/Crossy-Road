@@ -16,8 +16,8 @@ This project is a Crossy Road game developed in C++ using the Qt framework.
     ```
 2. Build and run the project.
     ```sh
-        cmake -S . -B build
-        cmake --build build
+    cmake -S . -B build
+    cmake --build build
     ```
 3. run executable
     ```sh

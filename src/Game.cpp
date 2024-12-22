@@ -4,7 +4,7 @@
 #include <iostream>
 
 // Constructor
-Game::Game() : player(), isRunning(true), score(0) {
+Game::Game(QWidget *parent) : QWidget(parent), player(Player()), isRunning(true), score(0) {
     initialiseVehicles();
 }
 
@@ -20,14 +20,32 @@ void Game::start() {
 }
 
 // Handle user input
-void Game::userInput() {
-
+void Game::keyPressEvent(QKeyEvent *event) {
+    switch(event->key()){
+        case Qt::Key_Up:
+            player.move(0,-1);
+            std::cout << "Up key pressed" << std::endl;
+            break;
+        case Qt::Key_Down:
+            player.move(0,1);
+            std::cout << "Down key pressed" << std::endl;
+            break;
+        case Qt::Key_Left:
+            player.move(-1,0);
+            std::cout << "Left key pressed" << std::endl;
+            break;
+        case Qt::Key_Right:
+            player.move(1,0);
+            std::cout << "Right key pressed" << std::endl;
+            break;
+        default:
+            QWidget::keyPressEvent(event);
+    }
 }
 
 // Update the game 
 void Game::update() {
     // move vehicles
-
     // update score
 }
 
@@ -35,9 +53,9 @@ void Game::update() {
 void Game::checkCollision() {
 
 }
+// Getter for isRunning
+bool Game::getIsRunning() const {
+    return isRunning;
+};
 
-// Render game
-void Game::render() {
-
-}
 
