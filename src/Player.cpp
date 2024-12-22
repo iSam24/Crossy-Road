@@ -1,13 +1,15 @@
 #include "Player.h"
-#include <iostream>
-#include <vector>
 
 // Constructor
-Player::Player() : Position{0.0f,0.0f}, lives(3) {}
+Player::Player(const QPixmap &pixmap) :  QGraphicsPixmapItem(pixmap){
+    Position = {0.0f,0.0f};
+    lives = 3; 
+}
 
 // Move the player
 void Player::move (float dx, float dy) {
-
+    Position[0] += dx;
+    Position[1] += dy;
 }
 
 // Reset the players position
@@ -16,30 +18,22 @@ void Player::resetPosition() {
 }
 
 // Get players position
-void Player::getPosition() const {
+std::vector<float> Player::getPosition() const {
     return Position;
 }
 
 // Get players number of lives
-void Player::getLives() const {
+int Player::getLives() const {
     return lives;
 }
 
 // Decreases players lives by -1
-void Player::loseLife() const {
+void Player::loseLife() {
     if (lives > 0) {
         lives--;
     }
 }
 
-void Player::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) {
-    painter->setBrush(Qt::blue);
-    painter->drawRect(Position[0], Position[1], 50, 50);
-}
-
-QRectF Player::boundingRect() const {
-    return QRectF(Position[0], Position[1], 50, 50);
-}
 
 
 

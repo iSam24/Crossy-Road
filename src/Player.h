@@ -1,25 +1,23 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <vector>
+#include <QGraphicsPixmapItem>
 
 
 // player
-class Player : public QGraphicsItem {
+class Player : public QGraphicsPixmapItem {
     private:
         std::vector<float> Position; // Stores the players position [x,y]
         int lives; // Number of lives
 
     public:
-        Player(); // Constructor
+        Player() : lives(3), Position{0,0} {} // Default constructor
+        Player(const QPixmap &pixmap); // Constructor
         void move(float dx, float dy); // move the player
         void resetPosition();
         std::vector<float> getPosition() const; // Get current position
         int getLives() const; // Get number of lives
         void loseLife(); // Decrease lives by 1
-
-        void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
-        QRectF boundingRect() const override;
 };
 
 #endif // PLAYER_H
