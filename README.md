@@ -15,11 +15,14 @@ This project is a Crossy Road game developed in C++ using the Qt framework.
     git clone https://github.com/iSam24/Crossy-road.git
     ```
 2. Build and run the project.
-```sh
-    cmake -S . -B build
-    cmake --build build
-```
-3. run executable ./build/CrossyRoad.exe
+    ```sh
+        cmake -S . -B build
+        cmake --build build
+    ```
+3. run executable
+    ```sh
+    ./build/CrossyRoad.exe
+    ```
 
 ## Usage
 
