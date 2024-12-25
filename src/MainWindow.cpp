@@ -1,39 +1,55 @@
 #include "MainWindow.h"
-#include "Player.h"
-#include <QGraphicsScene>
 #include <QGraphicsView>
-#include <QGraphicsPixmapItem>
 #include <QCoreApplication>
 #include <QPixmap>
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent) {
-    // Create the scene
-    QGraphicsScene *scene = new QGraphicsScene(this);
-
-    // Set window title and size
+    : QMainWindow(parent), scene(nullptr), player(nullptr) {
+    // Set window title
     setWindowTitle("Crossy Road");
-    resize(800, 600);
+    
+    // Create scene
+    scene = new QGraphicsScene(this);
+    scene->setSceneRect(0, 0, 800, 600);
 
-    // Create the view
-    QGraphicsView *view = new QGraphicsView(scene, this);
-    setCentralWidget(view);
-
-    // Add Player
+    // Load the player image
     QString playerPath = QCoreApplication::applicationDirPath() + "/../graphics/ghost.png";
     QPixmap playerImage(playerPath);
+
     if (playerImage.isNull()) {
         qDebug() << "Could not load player image";
     } else {
         qDebug() << "Player image loaded";
-        QPixmap scaledPlayerImage = playerImage.scaled(50, 50, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-        Player *player = new Player(scaledPlayerImage);
-        player->setPos(player->getPosition()[0], player->getPosition()[1]);
+        QPixmap PlayerPixMap = playerImage.scaled(50, 50, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        player = new Player(PlayerPixMap);
         scene->addItem(player);
+
+        // Create the QGraphicsView
+        QGraphicsView *view = new QGraphicsView(scene, this);
+        view->setRenderHint(QPainter::Antialiasing);
+        view->setRenderHint(QPainter::SmoothPixmapTransform);
+
+        // Create the Game widget
+        game = new Game(scene, player, this);
+        setCentralWidget(view);  // Set the QGraphicsView as the central widget
     }
 }
 
+// Destructor
 MainWindow::~MainWindow() {
-    // Cleanup, if needed
+    delete player;
+    delete scene;
+}
+
+QGraphicsScene* MainWindow::getScene() const {
+    return scene; // Return the scene
+}
+
+Player* MainWindow::getPlayer() const {
+    return player; // Return the player
+}
+
+Game* MainWindow::getGame() const {
+    return game;
 }

@@ -1,20 +1,33 @@
 #include "Player.h"
+#include <iostream>
 
 // Constructor
-Player::Player(const QPixmap &pixmap) :  QGraphicsPixmapItem(pixmap){
-    Position = {0.0f,0.0f};
+Player::Player(const QPixmap &pixmap, QGraphicsItem *parent) 
+    : QGraphicsPixmapItem(pixmap, parent) {
+    Position = {350.0f,550.0f};
     lives = 3; 
+    setPos(Position[0], Position[1]);
+}
+
+// Constructor
+Player::Player(QGraphicsItem *parent) {
+    Position = {100.0f,100.0f};
+    lives = 3; 
+    setPos(Position[0], Position[1]);
 }
 
 // Move the player
 void Player::move (float dx, float dy) {
+    std::cout << "Player moving" << std::endl;
     Position[0] += dx;
     Position[1] += dy;
+    setPos(Position[0], Position[1]);
 }
 
 // Reset the players position
 void Player::resetPosition() {
     Position = {0.0f, 0.0f};
+    setPos(Position[0], Position[1]);
 }
 
 // Get players position

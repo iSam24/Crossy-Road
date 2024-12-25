@@ -2,10 +2,15 @@
 #include "Vehicle.h"
 #include "Player.h"
 #include <iostream>
+#include <QGraphicsScene>
+#include <QDebug>
 
 // Constructor
-Game::Game(QWidget *parent) : QWidget(parent), player(Player()), isRunning(true), score(0) {
-    initialiseVehicles();
+Game::Game(QGraphicsScene *scene, Player *player, QWidget *parent)
+    : QWidget(parent), scene(scene), player(player), isRunning(true), score(0) {
+    scene->addItem(player); // Add the player to the scene
+    setFocusPolicy(Qt::StrongFocus); // Ensure this widget receives key events
+    setFocus();
 }
 
 // Initialise vehicles with starting position and speed
@@ -16,27 +21,29 @@ void Game::initialiseVehicles() {
 
 // Start the game
 void Game::start() {
-
+    isRunning = true;
+    qDebug() << "Game started";
 }
 
 // Handle user input
 void Game::keyPressEvent(QKeyEvent *event) {
+    std::cout << "Key pressed" << std::endl;
     switch(event->key()){
-        case Qt::Key_Up:
-            player.move(0,-1);
-            std::cout << "Up key pressed" << std::endl;
+        case Qt::Key_W:
+            player.move(0,-10);
+            std::cout << "W key pressed" << std::endl;
             break;
-        case Qt::Key_Down:
-            player.move(0,1);
-            std::cout << "Down key pressed" << std::endl;
+        case Qt::Key_S:
+            player.move(0,10);
+            std::cout << "S key pressed" << std::endl;
             break;
-        case Qt::Key_Left:
-            player.move(-1,0);
-            std::cout << "Left key pressed" << std::endl;
+        case Qt::Key_A:
+            player.move(-10,0);
+            std::cout << "A key pressed" << std::endl;
             break;
-        case Qt::Key_Right:
-            player.move(1,0);
-            std::cout << "Right key pressed" << std::endl;
+        case Qt::Key_D:
+            player.move(10,0);
+            std::cout << "D key pressed" << std::endl;
             break;
         default:
             QWidget::keyPressEvent(event);

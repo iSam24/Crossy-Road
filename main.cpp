@@ -10,12 +10,15 @@ int main(int argc, char *argv[]) {
     MainWindow window; // Create the main window
     window.show(); // Show the main window
 
-    // Start Game
-    Game *game = new Game();
-    game->start();
+     // Retrieve scene and player from MainWindow
+    QGraphicsScene *scene = window.getScene(); 
+    Player *player = window.getPlayer();
 
+    Game *game = window.getGame();
+
+    // Game loop
     QTimer *timer = new QTimer();
-    QObject::connect(timer, &QTimer::timeout, [&window, game](){
+    QObject::connect(timer, &QTimer::timeout, [&window, &game](){
         game->update();
         game->checkCollision();
         window.update();

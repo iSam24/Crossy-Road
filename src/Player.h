@@ -11,8 +11,8 @@ class Player : public QGraphicsPixmapItem {
         int lives; // Number of lives
 
     public:
-        Player() : lives(3), Position{0,0} {} // Default constructor
-        Player(const QPixmap &pixmap); // Constructor
+        explicit Player(const QPixmap &pixmap, QGraphicsItem *parent = nullptr); // Constructor
+        Player(QGraphicsItem *parent = nullptr); 
         void move(float dx, float dy); // move the player
         void resetPosition();
         std::vector<float> getPosition() const; // Get current position
