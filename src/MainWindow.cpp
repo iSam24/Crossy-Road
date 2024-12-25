@@ -29,10 +29,12 @@ MainWindow::MainWindow(QWidget *parent)
         QGraphicsView *view = new QGraphicsView(scene, this);
         view->setRenderHint(QPainter::Antialiasing);
         view->setRenderHint(QPainter::SmoothPixmapTransform);
+        setCentralWidget(view); 
+        view->setFocusPolicy(Qt::StrongFocus);
+        view->setFocus();
 
         // Create the Game widget
         game = new Game(scene, player, this);
-        setCentralWidget(view);  // Set the QGraphicsView as the central widget
     }
 }
 
@@ -43,11 +45,11 @@ MainWindow::~MainWindow() {
 }
 
 QGraphicsScene* MainWindow::getScene() const {
-    return scene; // Return the scene
+    return scene; 
 }
 
 Player* MainWindow::getPlayer() const {
-    return player; // Return the player
+    return player;
 }
 
 Game* MainWindow::getGame() const {

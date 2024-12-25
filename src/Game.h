@@ -17,6 +17,8 @@ private:
     bool isRunning; // Tracks whether the game is active
     int score; // Tracks the player's score
     QGraphicsScene *scene; // Declare scene
+    const float GAME_WIDTH = 800.0f;
+    const float GAME_HEIGHT = 600.0f;
 
 public:
     Game(QGraphicsScene *scene, Player *player, QWidget *parent = nullptr); // Constructor
@@ -25,6 +27,8 @@ public:
     void update(); // Update game state
     void checkCollision(); // Check for collisions
     bool getIsRunning() const; // Getter for isRunning
+    float getGameWidth() const; // Getter for GAME_WIDTH
+    float getGameHeight() const; // Getter for GAME_HEIGHT
     void keyPressEvent(QKeyEvent *event) override; // Handle user input
 };
 

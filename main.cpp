@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     Player *player = window.getPlayer();
 
     Game *game = window.getGame();
-
+    
     // Game loop
     QTimer *timer = new QTimer();
     QObject::connect(timer, &QTimer::timeout, [&window, &game](){

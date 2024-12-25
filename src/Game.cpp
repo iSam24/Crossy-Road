@@ -4,6 +4,7 @@
 #include <iostream>
 #include <QGraphicsScene>
 #include <QDebug>
+#include <QGraphicsView>
 
 // Constructor
 Game::Game(QGraphicsScene *scene, Player *player, QWidget *parent)
@@ -30,23 +31,27 @@ void Game::keyPressEvent(QKeyEvent *event) {
     std::cout << "Key pressed" << std::endl;
     switch(event->key()){
         case Qt::Key_W:
-            player.move(0,-10);
+            player.move(0, -10, getGameWidth(), getGameHeight());
             std::cout << "W key pressed" << std::endl;
             break;
         case Qt::Key_S:
-            player.move(0,10);
+            player.move(0, 10, getGameWidth(), getGameHeight());
             std::cout << "S key pressed" << std::endl;
             break;
         case Qt::Key_A:
-            player.move(-10,0);
+            player.move(-10, 0, getGameWidth(), getGameHeight());
             std::cout << "A key pressed" << std::endl;
             break;
         case Qt::Key_D:
-            player.move(10,0);
+            player.move(10, 0, getGameWidth(), getGameHeight());
             std::cout << "D key pressed" << std::endl;
             break;
         default:
             QWidget::keyPressEvent(event);
+    }
+    QGraphicsView *view = dynamic_cast<QGraphicsView*>(parentWidget());
+    if (view) {
+        view->viewport()->update(); // Request an update of the viewport
     }
 }
 
@@ -60,9 +65,18 @@ void Game::update() {
 void Game::checkCollision() {
 
 }
+
 // Getter for isRunning
 bool Game::getIsRunning() const {
     return isRunning;
 };
 
+// Getter for GAME_WIDTH
+float Game::getGameWidth() const {
+    return GAME_WIDTH;
+}
 
+// Getter for GAME_HEIGHT
+float Game::getGameHeight() const {
+    return GAME_HEIGHT;
+}

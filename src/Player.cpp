@@ -17,11 +17,18 @@ Player::Player(QGraphicsItem *parent) {
 }
 
 // Move the player
-void Player::move (float dx, float dy) {
+void Player::move (float dx, float dy, float max_x, float max_y) {
     std::cout << "Player moving" << std::endl;
+    if (Position[0] + dx < 0 || Position[0] + dx > max_x) {
+        return;
+    }
+    else if (Position[1] + dy < 0 || Position[1] + dy > max_y) {
+        return;
+    }
     Position[0] += dx;
     Position[1] += dy;
     setPos(Position[0], Position[1]);
+    std::cout << "Player position: " << Position[0] << ", " << Position[1] << std::endl;
 }
 
 // Reset the players position
