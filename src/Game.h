@@ -6,13 +6,16 @@
 #include <vector>
 #include "Player.h"
 #include "Vehicle.h"
+#include "MainWindow.h"
 
+// Forward declaration of MainWindow class
+class MainWindow;
 
 class Game : public QWidget {
     Q_OBJECT
 
 private:
-    Player player; // The player object
+    Player* player; // The player object
     std::vector<Vehicle> vehicles; // Collection of vehicles
     bool isRunning; // Tracks whether the game is active
     int score; // Tracks the player's score
@@ -30,6 +33,7 @@ public:
     float getGameWidth() const; // Getter for GAME_WIDTH
     float getGameHeight() const; // Getter for GAME_HEIGHT
     void keyPressEvent(QKeyEvent *event) override; // Handle user input
+    Player getPlayer(); // Getter for player
 };
 
 #endif // GAME_H

@@ -3,6 +3,7 @@
 #include <QCoreApplication>
 #include <QPixmap>
 #include <QDebug>
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), scene(nullptr), player(nullptr) {
@@ -21,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
         qDebug() << "Could not load player image";
     } else {
         qDebug() << "Player image loaded";
-        QPixmap PlayerPixMap = playerImage.scaled(50, 50, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        QPixmap PlayerPixMap = playerImage.scaled(PlayerSize, PlayerSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         player = new Player(PlayerPixMap);
         scene->addItem(player);
 
@@ -41,6 +42,7 @@ MainWindow::MainWindow(QWidget *parent)
 // Destructor
 MainWindow::~MainWindow() {
     delete player;
+    delete game;
     delete scene;
 }
 
@@ -54,4 +56,8 @@ Player* MainWindow::getPlayer() const {
 
 Game* MainWindow::getGame() const {
     return game;
+}
+
+int MainWindow::getPlayerSize() const {
+    return PlayerSize;
 }

@@ -6,6 +6,9 @@
 #include "Player.h"
 #include "Game.h"
 
+// Forward declaration of the Game class
+class Game;
+
 class MainWindow : public QMainWindow {
     Q_OBJECT  // Enables Qt's signal and slot mechanism
 
@@ -16,11 +19,13 @@ public:
     QGraphicsScene* getScene() const; // Getter for the scene
     Player* getPlayer() const;        // Getter for the player
     Game* getGame() const;            // Getter for the game
+    int   getPlayerSize() const; // Getter for player size
 
 private:
     QGraphicsScene *scene; // The scene object
     Player *player;        // The player object
     Game *game;            // The game object
+    int PlayerSize = 50;   // Size of the player
 };
 
 #endif // MAINWINDOW_H

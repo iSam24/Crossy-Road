@@ -8,8 +8,7 @@
 
 // Constructor
 Game::Game(QGraphicsScene *scene, Player *player, QWidget *parent)
-    : QWidget(parent), scene(scene), player(player), isRunning(true), score(0) {
-    scene->addItem(player); // Add the player to the scene
+    : scene(scene), player(player), QWidget(parent), isRunning(true), score(0) {
     setFocusPolicy(Qt::StrongFocus); // Ensure this widget receives key events
     setFocus();
 }
@@ -29,21 +28,23 @@ void Game::start() {
 // Handle user input
 void Game::keyPressEvent(QKeyEvent *event) {
     std::cout << "Key pressed" << std::endl;
+    //int boundary = getGameWidth() - mainWindow->getPlayerSize();
+    int boundary = getGameWidth() - 50; // 50 is the player size (need to link this to the attribute in mainwindow)
     switch(event->key()){
         case Qt::Key_W:
-            player.move(0, -10, getGameWidth(), getGameHeight());
+            player->move(0, -10, boundary, boundary);
             std::cout << "W key pressed" << std::endl;
             break;
         case Qt::Key_S:
-            player.move(0, 10, getGameWidth(), getGameHeight());
+            player->move(0, 10, boundary, boundary);
             std::cout << "S key pressed" << std::endl;
             break;
         case Qt::Key_A:
-            player.move(-10, 0, getGameWidth(), getGameHeight());
+            player->move(-10, 0, boundary, boundary);
             std::cout << "A key pressed" << std::endl;
             break;
         case Qt::Key_D:
-            player.move(10, 0, getGameWidth(), getGameHeight());
+            player->move(10, 0, boundary, boundary);
             std::cout << "D key pressed" << std::endl;
             break;
         default:
@@ -57,7 +58,7 @@ void Game::keyPressEvent(QKeyEvent *event) {
 
 // Update the game 
 void Game::update() {
-    // move vehicles
+    // print vehicles
     // update score
 }
 
