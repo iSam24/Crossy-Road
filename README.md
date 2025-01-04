@@ -7,6 +7,7 @@ This project is a Crossy Road game developed in C++ using the Qt framework.
 - MinGW C++ compiler
 - CMake 3.16
 - Qt framework (add C:\Qt\6.8.1\mingw_64\bin to environment variables path)
+- add "C:/Qt/6.8.1/mingw_64/include/**" to include path in c_cpp_properties.json
 
 ## Installation
 
@@ -16,18 +17,12 @@ This project is a Crossy Road game developed in C++ using the Qt framework.
     ```
 2. Build and run the project.
     ```sh
-    cmake -S . -B build
-    cmake --build build
+    mkdir build
+    cd build
+    cmake .. -G "MinGW Makefiles"
+    cmake --build .
     ```
-3. run executable
+3. Run the executable
     ```sh
-    ./build/CrossyRoad.exe
+    ./CrossyRoad.exe
     ```
-
-## Usage
-
-Use the arrow keys to navigate your character and avoid obstacles. Try to get as far as possible without getting hit!
-
-## License
-
-This project is licensed under the MIT License.

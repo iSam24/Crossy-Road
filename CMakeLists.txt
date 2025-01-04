@@ -3,15 +3,20 @@ cmake_minimum_required(VERSION 3.16)
 # Project name and version
 project(CrossyRoad VERSION 1.0)
 
+# C++ Version
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Specify the compiler
+set(CMAKE_C_COMPILER "C:/msys64/mingw64/bin/gcc.exe")
+set(CMAKE_CXX_COMPILER "C:/msys64/mingw64/bin/g++.exe")
+
 # Add include directories
 include_directories(src)
 
 # Find the required Qt components
 find_package(Qt6 COMPONENTS Core Widgets Gui REQUIRED)
 
-# C++ Version
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Instruct CMake to run moc and rcc automatically when needed
 set(CMAKE_AUTOMOC ON)
