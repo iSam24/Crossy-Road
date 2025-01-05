@@ -8,9 +8,14 @@
 
 // Constructor
 Game::Game(QGraphicsScene *scene, Player *player, QWidget *parent)
-    : scene(scene), player(player), QWidget(parent), isRunning(true), score(0) {
+    : scene(scene), player(player), QWidget(parent), isRunning(true), score(0), 
+    movementTimer(new QTimer(this)) {
     setFocusPolicy(Qt::StrongFocus); // Ensure this widget receives key events
     setFocus();
+
+    // Connect timer to updatePlayerMovement method
+    connect(movementTimer, &QTimer::timeout, this, &Game::updatePlayerMovement);
+    movementTimer->start(16); // Update every 16 ms (~60 FPS)
 }
 
 // Initialise vehicles with starting position and speed
@@ -25,34 +30,40 @@ void Game::start() {
     qDebug() << "Game started";
 }
 
-// Handle user input
-void Game::keyPressEvent(QKeyEvent *event) {
-    std::cout << "Key pressed" << std::endl;
-    //int boundary = getGameWidth() - mainWindow->getPlayerSize();
+void Game::updatePlayerMovement() {
     int boundary = getGameWidth() - 50; // 50 is the player size (need to link this to the attribute in mainwindow)
-    switch(event->key()){
-        case Qt::Key_W:
-            player->move(0, -10, boundary, boundary);
-            std::cout << "W key pressed" << std::endl;
-            break;
-        case Qt::Key_S:
-            player->move(0, 10, boundary, boundary);
-            std::cout << "S key pressed" << std::endl;
-            break;
-        case Qt::Key_A:
-            player->move(-10, 0, boundary, boundary);
-            std::cout << "A key pressed" << std::endl;
-            break;
-        case Qt::Key_D:
-            player->move(10, 0, boundary, boundary);
-            std::cout << "D key pressed" << std::endl;
-            break;
-        default:
-            QWidget::keyPressEvent(event);
+    // Check which keys are pressed and move the player accordingly
+    if(keysPressed.contains(Qt::Key_W)) {
+        player->move(0, -10, boundary, boundary);
+        std::cout << "W pressed" << std::endl;
     }
-    QGraphicsView *view = dynamic_cast<QGraphicsView*>(parentWidget());
-    if (view) {
-        view->viewport()->update(); // Request an update of the viewport
+    if(keysPressed.contains(Qt::Key_S)) {
+        player->move(0, 10, boundary, boundary);
+        std::cout << "S pressed" << std::endl;
+    }
+    if(keysPressed.contains(Qt::Key_A)) {
+        player->move(-10, 0, boundary, boundary);
+        std::cout << "A pressed" << std::endl;
+    }
+    if(keysPressed.contains(Qt::Key_D)) {
+        player->move(10, 0, boundary, boundary);
+        std::cout << "D pressed" << std::endl;
+    }
+
+    update(); // Update the viewport
+}
+
+void Game::keyPressEvent(QKeyEvent *event) {
+    // Add the pressed key to the set if it's not already there
+    if(!event->isAutoRepeat()) {
+        keysPressed.insert(event->key());
+    }
+}
+
+void Game::keyReleaseEvent(QKeyEvent *event) {
+    // Remove the released key from the set
+    if(!event->isAutoRepeat()) {
+        keysPressed.remove(event->key());
     }
 }
 
