@@ -15,28 +15,40 @@ MainWindow::MainWindow(QWidget *parent)
     scene->setSceneRect(0, 0, 800, 600);
 
     // Load the player image
-    QString playerPath = QCoreApplication::applicationDirPath() + "/../graphics/ghost.png";
-    QPixmap playerImage(playerPath);
-
-    if (playerImage.isNull()) {
-        qDebug() << "Could not load player image";
-    } else {
+    try {
+        QString playerPath = QCoreApplication::applicationDirPath() + "/../graphics/ghost.png";
+        QPixmap playerImage(playerPath);
         qDebug() << "Player image loaded";
         QPixmap PlayerPixMap = playerImage.scaled(PlayerSize, PlayerSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         player = new Player(PlayerPixMap);
         scene->addItem(player);
-
-        // Create the QGraphicsView
-        QGraphicsView *view = new QGraphicsView(scene, this);
-        view->setRenderHint(QPainter::Antialiasing);
-        view->setRenderHint(QPainter::SmoothPixmapTransform);
-        setCentralWidget(view); 
-        view->setFocusPolicy(Qt::StrongFocus);
-        view->setFocus();
-
-        // Create the Game widget
-        game = new Game(scene, player, this);
+    } catch (const std::exception &e) {
+        qDebug() << "Could not load player image";
     }
+
+    // Load the vehicle image
+    try {
+        QString vehiclePath = QCoreApplication::applicationDirPath() + "/../graphics/van.png";
+        QPixmap vehicleImage(vehiclePath);
+        qDebug() << "Vehicle image loaded";
+        QPixmap VehiclePixMap = vehicleImage.scaled(vehicleSize, vehicleSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        vehicle = new Vehicle(VehiclePixMap);
+        scene->addItem(vehicle);
+    } catch (const std::exception &e) {
+        qDebug() << "Could not load vehicle image";
+    }
+
+    // Create the QGraphicsView
+    QGraphicsView *view = new QGraphicsView(scene, this);
+    view->setRenderHint(QPainter::Antialiasing);
+    view->setRenderHint(QPainter::SmoothPixmapTransform);
+    setCentralWidget(view); 
+    view->setFocusPolicy(Qt::StrongFocus);
+    view->setFocus();
+
+    // Create the Game widget
+    game = new Game(scene, player, this);
+
 }
 
 // Destructor

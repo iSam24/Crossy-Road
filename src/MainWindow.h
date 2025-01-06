@@ -5,6 +5,7 @@
 #include <QGraphicsScene>
 #include "Player.h"
 #include "Game.h"
+#include "Vehicle.h"
 
 // Forward declaration of the Game class
 class Game;
@@ -24,8 +25,10 @@ public:
 private:
     QGraphicsScene *scene; // The scene object
     Player *player;        // The player object
+    Vehicle *vehicle;      // The vehicle object
     Game *game;            // The game object
     int PlayerSize = 50;   // Size of the player
+    int vehicleSize = 60;  // Size of the vehicle
 };
 
 #endif // MAINWINDOW_H

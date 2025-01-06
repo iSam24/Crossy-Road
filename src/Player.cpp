@@ -9,13 +9,6 @@ Player::Player(const QPixmap &pixmap, QGraphicsItem *parent)
     setPos(Position[0], Position[1]);
 }
 
-// Constructor
-Player::Player(QGraphicsItem *parent) {
-    Position = {100.0f,100.0f};
-    lives = 3; 
-    setPos(Position[0], Position[1]);
-}
-
 // Move the player
 void Player::move (float dx, float dy, float max_x, float max_y) {
     std::cout << max_x << ", " << max_y << std::endl;

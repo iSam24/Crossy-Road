@@ -1,20 +1,24 @@
 #include "Vehicle.h"
 #include "Direction.h"
 
-// Default constructor
-Vehicle::Vehicle() : Position{0.0f,0.0f}, speed(1), direction(Direction::UP) {}
-
 // Parameterized constructor
-Vehicle::Vehicle(const std::vector<float>& position, int speed, Direction direction)
-    : Position(position), speed(speed), direction(direction) {}
+Vehicle::Vehicle(const QPixmap &pixmap, QGraphicsItem *parent, const std::vector<float>& position, int speed, Direction direction)
+    : QGraphicsPixmapItem(pixmap), Position(position), speed(speed), direction(direction) {
+    setPos(Position[0], Position[1]);
+}
 
 // Updates vehicles position
-void updatePosition() {
+void setPosition() {
 
 }
 
-// Resets vehicles position
-void resetPosition() {
+// Sets vehicles speed
+void setSpeed() {
+
+}
+
+// Sets vehicles direction
+void setDirection() {
 
 }
 
@@ -31,14 +35,4 @@ void getSpeed() {
 // Gets vehicles direction
 void getdirection() {
 
-}
-
-// Sets vehicles speed
-void setSpeed() {
-
-}
-
-// Sets vehicles direction
-void setDirection() {
-    
 }

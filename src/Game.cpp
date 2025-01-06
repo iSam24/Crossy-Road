@@ -20,8 +20,7 @@ Game::Game(QGraphicsScene *scene, Player *player, QWidget *parent)
 
 // Initialise vehicles with starting position and speed
 void Game::initialiseVehicles() {
-    vehicles.push_back(Vehicle({0.0f,10.0f},2,Direction::LEFT)); // Examples
-    vehicles.push_back(Vehicle({0.0f,15.0f},2,Direction::LEFT));
+    
 }
 
 // Start the game
@@ -31,22 +30,23 @@ void Game::start() {
 }
 
 void Game::updatePlayerMovement() {
-    int boundary = getGameWidth() - 50; // 50 is the player size (need to link this to the attribute in mainwindow)
+    int Xboundary = getGameWidth() - 50; // 50 is the player size (need to link this to the attribute in mainwindow)
+    int Yboundary = getGameHeight() - 50; // 50 is the player size (need to link this to the attribute in mainwindow)
     // Check which keys are pressed and move the player accordingly
     if(keysPressed.contains(Qt::Key_W)) {
-        player->move(0, -10, boundary, boundary);
+        player->move(0, -10, Xboundary, Yboundary);
         std::cout << "W pressed" << std::endl;
     }
     if(keysPressed.contains(Qt::Key_S)) {
-        player->move(0, 10, boundary, boundary);
+        player->move(0, 10, Xboundary, Yboundary);
         std::cout << "S pressed" << std::endl;
     }
     if(keysPressed.contains(Qt::Key_A)) {
-        player->move(-10, 0, boundary, boundary);
+        player->move(-10, 0, Xboundary, Yboundary);
         std::cout << "A pressed" << std::endl;
     }
     if(keysPressed.contains(Qt::Key_D)) {
-        player->move(10, 0, boundary, boundary);
+        player->move(10, 0, Xboundary, Yboundary);
         std::cout << "D pressed" << std::endl;
     }
 
